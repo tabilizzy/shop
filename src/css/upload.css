@@ -26,3 +26,12 @@
     border-color: #a88734 #9c7e31 #846a29;
     color: #111;
   }
+
+  .img-preview-wrapper{
+    width: 100%; 
+  }
+
+  .preview{
+    object-fit: contain;
+    width: 100%;
+  }
