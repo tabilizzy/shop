@@ -1,0 +1,27 @@
+.main{
+    height: 60px;
+   display: flex;
+   align-items: center;
+   background-color: #131921;
+   position: sticky;
+   top: 0;
+   z-index: 100; 
+}
+.main_logo{
+    width: 100px;
+    object-fit: contain;
+    margin: 0 20px;
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+.main_nav{
+    display: flex;
+    justify-content:space-evenly;
+}
+.main_option {
+    display: flex;
+    flex-direction: column;
+    margin-left: 400px;
+    margin-right: 20px;
+    color: white;
+}
