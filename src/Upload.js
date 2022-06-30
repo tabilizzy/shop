@@ -29,7 +29,7 @@ function Upload() {
               placeholder="Product description"
             />
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <label for="price" class="form-label">
               Price
             </label>
