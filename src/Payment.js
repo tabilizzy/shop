@@ -69,7 +69,7 @@ function Payment() {
                 thousandSeparator={true}
                 suffix={"frs"}
               />
-              {/* <button
+               <button
                 onClick={(e) => {
                   console.log(totalCost);
                   Navigate("/orders");
@@ -78,7 +78,7 @@ function Payment() {
                 }}
               >
                 buy now
-              </button> */}
+              </button> 
               <button
                 onClick={(e) => {
                   let memo = "Shop Purchase";
