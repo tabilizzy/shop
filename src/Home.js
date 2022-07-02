@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./css/Home.css";
-import Product from "./Product";
 import { firestore } from "./firebase";
 import { useStateValue } from "./StateProvider";
 
 
-function Home({id, catergory, title, image, price, rating}) {
+function Home({id,image, name, price, description, rating}) {
 
   const [existingCategories, setExistingCatgories] = useState([]);
   const [choosenCategory, setChoosenCategory] = useState("");
@@ -19,10 +18,10 @@ function Home({id, catergory, title, image, price, rating}) {
       type: "ADD_TO_BASKET",
       items: {
         id: id,
-        catergory:catergory,
-        title: title,
+        name:name,
         image: image,
         price: price,
+        description:description,
         rating: rating,
       },
     });
@@ -60,6 +59,7 @@ function Home({id, catergory, title, image, price, rating}) {
   return (
     <div>
       <div className="container">
+        
         <div className="h6 pt-5 pb-2">Categories</div>
         <div className="row overflow-scroll">
           {existingCategories.map((cat, index) => {
@@ -80,17 +80,26 @@ function Home({id, catergory, title, image, price, rating}) {
           <div className="h3 pt-2 pb-1">{choosenCategory}</div>
           {items.map((item, index) => {
             return (
-              <div className="col-md-4" key={index}>
-                <div class="card mb-3">
-                  <img src={item.image} class="card-img-top" alt="" />
-                  <div class="card-body">
-                    <h6 class="card-title">{item.name}</h6>
-                    <h3 class="card-title fw-bold">{Number(item.price).toLocaleString()} <span className="fs-6 fw-normal text-muted">frs</span></h3>
-                    <p class="card-text">{item.description}</p>
-                    <p class="card-text">
-                      <small class="text-muted">{item.rating}</small>
-                      <button onClick={addToBasket}>Add to Basket</button>
+              
+              <div className="col-md-6" key={index}>
+                <div class="card mb-4">
+                  <img src={item.image} classname="card-img-top" alt="" />
+                  <div className="card-body">
+                    <h6 className="card-title">{item.name}</h6>
+                    <h3 className="card-title fw-bold">{Number(item.price).toLocaleString()} <span className="fs-6 fw-normal text-muted">frs</span></h3>
+                    <p className="card-text">{item.description}</p>
+                    <p className="card-text">
+                      <small className="text-muted">
+                        {/* {item.rating} */}
+                        {Array(item.rating)
+                         .fill()
+                         .map((_, i) => (
+                          <p>⭐</p>
+                          ))}
+                        </small>
                     </p>
+                    <button onClick={addToBasket}>Add to Basket</button>
+
                   </div>
                 </div>
               </div>

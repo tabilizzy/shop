@@ -10,6 +10,7 @@ function Upload() {
   const [fileDataURL, setFileDataURL] = useState(null);
   const [existingCategories, setExistingCatgories] = useState([]);
   const [selectCategory, setSelectCategory] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const changeHandler = (e) => {
     const file = e.target.files[0];
