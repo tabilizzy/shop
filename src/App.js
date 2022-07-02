@@ -18,12 +18,14 @@ import Newheader from "./Newheader";
 import View from "./View";
 import Upload from "./Upload";
 import HeaderNew from "./Header copy";
+import Alan from "./Hooks/Alan";
 
 const promise = loadStripe(
   "pk_test_51LBKSvF3b97fkgH1NL06cXGoraMh8i627gtjXtHksuFWTF332QbHK4RiiwFphaFTNlC3B65K7kp9Wbdpw2H0Bhv100uE37QIbM"
 );
 
 function App() {
+  Alan()
   const [{}, dispatch] = useStateValue();
   // will only run once when the app component loads...
 
