@@ -10,7 +10,7 @@ function Upload() {
   const [fileDataURL, setFileDataURL] = useState(null);
   const [existingCategories, setExistingCatgories] = useState([]);
   const [selectCategory, setSelectCategory] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const changeHandler = (e) => {
     const file = e.target.files[0];
@@ -22,8 +22,12 @@ function Upload() {
   };
 
   function uploadProduct(category, product) {
+    console.log("clicked");
     if (selectCategory) {
+      setLoading(true);
+
       // create new category
+
       firestore
         .collection("categories")
         .doc(category.name)
@@ -48,6 +52,7 @@ function Upload() {
                 .set(product)
                 .then(() => {
                   alert("Operation Successful");
+                  setLoading(false);
                 })
                 .catch((e) => {
                   console.log(e);
@@ -55,7 +60,7 @@ function Upload() {
                 });
             });
           });
-          
+          console.log("end of click");
         })
         .catch((e) => {
           console.error(e);
@@ -63,6 +68,7 @@ function Upload() {
         });
     } else {
       //update existing category
+      setLoading(true);
 
       const storage = getStorage();
       const pathReference = ref(
@@ -71,11 +77,13 @@ function Upload() {
       );
 
       uploadBytes(pathReference, file).then((snapshot) => {
-        console.log(snapshot)
-        getDownloadURL(ref(storage, snapshot.ref)).then((url) => { 
+        console.log(snapshot);
+        setLoading(false);
+        console.log("end of click");
 
+        getDownloadURL(ref(storage, snapshot.ref)).then((url) => {
           product.image = url;
-          
+
           firestore
             .collection("categories")
             .doc(category.name.toLowerCase())
@@ -148,7 +156,7 @@ function Upload() {
               category: e.target.category.value,
               rating: e.target.ratings.value,
               price: e.target.price.value,
-              description: e.target.description.value
+              description: e.target.description.value,
             };
 
             uploadProduct(categoryData, productData);
@@ -265,7 +273,7 @@ function Upload() {
           </div>
           <div className="col-12">
             <button type="submit" className="btn btn-primary">
-              Upload Product
+              {loading ? "Uploading..." : "Upload Product"}
             </button>
           </div>
         </form>

@@ -1,48 +1,43 @@
-import React from 'react'
-import "./css/Checkout.css"
-import Subtotal from './Subtotal'
-import CheckoutProduct from './CheckoutProduct'
-import {useStateValue} from './StateProvider'
-
-
-
+import React from "react";
+import "./css/Checkout.css";
+import Subtotal from "./Subtotal";
+import CheckoutProduct from "./CheckoutProduct";
+import { useStateValue } from "./StateProvider";
 
 function Checkout() {
-  const [{basket, user}, dispatch] = useStateValue();
+  const [{ basket, user }, dispatch] = useStateValue();
+  console.log(basket, "basket");
 
   return (
-    <div className='checkout'> 
-    <div className='checkout_left'>
-        
-        <img className='checkout_ad'
-        src="./images/open.jpg" alt='openshop'/>
+    <div className="checkout">
+      <div className="checkout_left">
+        <img className="checkout_ad" src="./images/open.jpg" alt="openshop" />
         <div>
           <h3>Hello , {user?.email}</h3>
-           <h2 className='checkout_title'>
-               Your Shopping Basket</h2>
+          <h2 className="checkout_title">Your Shopping Basket</h2>
 
-               {basket.map(item => (
-            <CheckoutProduct
-              id={item.id}
-              catergory={item.catergory}
-              title={item.title}
-              image={item.image}
-              price={item.price}
-              rating={item.rating}
-            />
-          ))}
-
+          {basket.map((item) => {
+            console.log(item, "i=================");
+            return (
+              <CheckoutProduct
+                id={item.id}
+                catergory={item.catergory}
+                title={item.title}
+                image={item.image}
+                price={item.price}
+                rating={item.rating}
+              />
+            );
+          })}
         </div>
-        
+      </div>
+
+      <div className="checkout_right">
+        <Subtotal />
+        <h2>the subtotal will go here</h2>
+      </div>
     </div>
-    
-    <div className='checkout_right'>
-        <Subtotal/>
-          <h2>the subtotal will go here</h2>
-    </div>
-    
-    </div>
-  )
+  );
 }
 
-export default Checkout
+export default Checkout;

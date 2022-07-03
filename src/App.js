@@ -25,7 +25,7 @@ const promise = loadStripe(
 );
 
 function App() {
-  Alan()
+  Alan();
   const [{}, dispatch] = useStateValue();
   // will only run once when the app component loads...
 
@@ -133,7 +133,7 @@ function App() {
             element={
               <>
                 <Header />
-                <HeaderNew/>
+                <HeaderNew />
                 <Home />
               </>
             }

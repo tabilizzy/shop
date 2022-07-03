@@ -10,7 +10,7 @@ function View() {
     firestore.collection("categories").onSnapshot((snap) => {
       let docs = snap.docs.map((doc) => doc.data());
       setExistingCatgories(docs);
-      console.log(docs[0].name)
+      console.log(docs[0].name);
       setValues(docs[0].name.toLowerCase());
     });
   }
@@ -63,7 +63,10 @@ function View() {
                   <img src={item.image} class="card-img-top" alt="" />
                   <div class="card-body">
                     <h6 class="card-title">{item.name}</h6>
-                    <h3 class="card-title fw-bold">{Number(item.price).toLocaleString()} <span className="fs-6 fw-normal text-muted">frs</span></h3>
+                    <h3 class="card-title fw-bold">
+                      {Number(item.price).toLocaleString()}{" "}
+                      <span className="fs-6 fw-normal text-muted">frs</span>
+                    </h3>
                     <p class="card-text">{item.description}</p>
                     <p class="card-text">
                       <small class="text-muted">{item.rating}</small>
