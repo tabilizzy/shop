@@ -5,8 +5,6 @@ import {auth} from "./firebase"
 import {signInWithEmailAndPassword} from "firebase/auth";
 
 
-
-
 function Login() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
