@@ -4,16 +4,17 @@ import { firestore, storage } from "./firebase";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useLocation } from "react-router-dom";
 
-function Upload() {
+function Edit() {
   const imageMimeType = /image\/(png|jpg|jpeg)/i;
 
   const [file, setFile] = useState(null);
   const [fileDataURL, setFileDataURL] = useState(null);
   const [existingCategories, setExistingCatgories] = useState([]);
   const [selectCategory, setSelectCategory] = useState(false);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
+  const [editItem, setEditItem] = useState({})
+  const location = useLocation();
 
-  
   const changeHandler = (e) => {
     const file = e.target.files[0];
     if (!file.type.match(imageMimeType)) {
@@ -45,12 +46,12 @@ function Upload() {
             getDownloadURL(ref(storage, snapshot.ref)).then((url) => {
               console.log(url);
 
-              product.image = url;
+              product.image = editItem.image || url;
               firestore
                 .collection("categories")
                 .doc(category.name.toLowerCase())
                 .collection("items")
-                .doc(product.id)
+                .doc(editItem.id)
                 .set(product)
                 .then(() => {
                   alert("Operation Successful");
@@ -90,8 +91,8 @@ function Upload() {
             .collection("categories")
             .doc(category.name.toLowerCase())
             .collection("items")
-            .doc(product.id)
-            .set(product)
+            .doc(editItem.id)
+            .update(product)
             .then(() => {
               alert("Operation Successful");
             })
@@ -112,10 +113,23 @@ function Upload() {
   }
  
 
+  function initializeData(data){
+    setEditItem(data);
+    setSelectCategory(true);
+    setFileDataURL(data.image);
+  }
+
   useEffect(() => {
     fetchCategories();
   });
- 
+
+  useEffect(() => {
+    if(location.state){
+      let temp = location.state;
+      console.log(temp)
+    initializeData(temp);
+    }
+  },[location])
 
   useEffect(() => {
     let fileReader,
@@ -175,7 +189,13 @@ function Upload() {
                   className="form-control"
                   name="category"
                   id="category"
-                  placeholder="Cartegory"
+                  placeholder="Category"
+                  value={editItem.category}
+                  onChange={(e)=>{
+                    let temp = editItem;
+                    temp.category = e.target.value;
+                    setEditItem(temp); 
+                  }}
                 />
                 <div
                   className="input-group-text bg-danger text-light"
@@ -225,6 +245,12 @@ function Upload() {
               name="productName"
               id="title"
               placeholder="Product Name"
+              value={editItem.name}
+              onChange={(e)=>{
+                let temp = editItem;
+                temp.name = e.target.value;
+                setEditItem(temp); 
+              }}
             />
           </div>
           <div className="col-12">
@@ -235,6 +261,12 @@ function Upload() {
               id="Description"
               name="description"
               placeholder="Product description"
+              value={editItem.description}
+              onChange={(e)=>{
+                let temp = editItem;
+                temp.description = e.target.value;
+                setEditItem(temp); 
+              }}
             />
           </div>
           <div className="col-md-3">
@@ -245,6 +277,12 @@ function Upload() {
               name="price"
               placeholder="price"
               id="price"
+                value={editItem.price}
+                onChange={(e)=>{
+                  let temp = editItem;
+                  temp.price = e.target.value;
+                  setEditItem(temp); 
+                }}
             />
           </div>
           <div className="col-md-2">
@@ -254,6 +292,13 @@ function Upload() {
               className="form-control"
               id="ratings"
               name="ratings"
+                placeholder="ratings"
+                value={editItem.rating}
+                onChange={(e)=>{
+                  let temp = editItem;
+                  temp.rating = e.target.value;
+                  setEditItem(temp); 
+                }}
             />
           </div>
           <div className="col-md-4">
@@ -263,14 +308,14 @@ function Upload() {
               type="file"
               id="image"
               accept=".png, .jpg, .jpeg"
-              onChange={changeHandler}
+              onChange={changeHandler} 
             />
           </div>
           <div className="col-md-12">
-            <div className="card">
+            <div className="card w-auto">
               {fileDataURL ? (
                 <p className="img-preview-wrapper">
-                  {<img src={fileDataURL} alt="preview" className="preview" />}
+                  {<img src={fileDataURL} alt="preview" className="w-lg-25" />}
                 </p>
               ) : null}
             </div>
@@ -286,4 +331,4 @@ function Upload() {
   );
 }
 
-export default Upload;
+export default Edit;

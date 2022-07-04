@@ -11,6 +11,10 @@ function Payment() {
   const [totalCost, setTotalCost] = useState("0");
   const Navigate = useNavigate();
 
+  function storeData(data) {
+    localStorage.setItem("data", JSON.stringify(data));
+  }
+
   return (
     <div className="payment">
       <div className="payment__container">
@@ -69,22 +73,14 @@ function Payment() {
                 thousandSeparator={true}
                 suffix={"frs"}
               />
-              <button
-                onClick={(e) => {
-                  console.log(totalCost);
-                  Navigate("/orders");
-                  // window.location.href = 'https://google.com';
-                  //window.open='https://google.com';
-                }}
-              >
-                buy now
-              </button>
+               
               <button
                 onClick={(e) => {
                   let memo = "Shop Purchase";
                   let s_url = "http://localhost:3000/orders";
                   let c_url = "http://localhost:3000/orders";
                   let url = `https://zitopay.africa/sci/?currency=XAF&amount=${totalCost}&receiver=awakedom&memo=${memo}&success_url=${s_url}&cancel_url=${c_url}`;
+                  storeData(basket);
                   window.location.href = url;
                   console.log("This is me", url);
                 }}

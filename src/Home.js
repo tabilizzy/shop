@@ -79,8 +79,8 @@ function Home() {
           {items.map((item, index) => {
             return (
               <div className="col-md-6" key={index}>
-                <div class="card mb-4">
-                  <img src={item.image} classname="card-img-top" alt="" />
+                <div className="card mb-4">
+                  <img src={item.image} className="card-img-top" alt="" />
                   <div className="card-body">
                     <h6 className="card-title">{item.name}</h6>
                     <h3 className="card-title fw-bold">
@@ -91,14 +91,23 @@ function Home() {
                     <p className="card-text">
                       <small className="text-muted">
                         {/* {item.rating} */}
-                        {Array(item.rating)
-                          .fill()
-                          .map((_, i) => (
-                            <p>⭐</p>
-                          ))}
+                        {/* { 
+                        Array.from(Array(item.rating))
+                          .keys()
+                          .map((_, i) => {
+                            console.log(item.rating)
+                           return <p key={i}>⭐</p>
+                          })} */}
+
+                          {
+                            Array.from(Array(item.rating)).map((_,i)=>{
+
+                              return <p key={i}>⭐</p>
+                            })
+                          }
                       </small>
                     </p>
-                    <button onClick={() => addToBasket(item)}>
+                    <button className="btn-sm btn btn-primary" onClick={() => addToBasket(item)}>
                       Add to Basket
                     </button>
                   </div>

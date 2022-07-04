@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { firestore } from "./firebase";
 
 function View() {
   const [existingCategories, setExistingCatgories] = useState([]);
   const [choosenCategory, setChoosenCategory] = useState("");
   const [items, setItems] = useState([]);
+  const navigate = useNavigate();
 
   function fetchCategories() {
     firestore.collection("categories").onSnapshot((snap) => {
@@ -31,6 +33,33 @@ function View() {
     displayData(category);
   }
 
+  function deleteItem(data) {
+    firestore.collection("categories").doc(choosenCategory).collection("items").doc(data.id).delete().then(() => {
+      console.log("Document successfully deleted!");
+      alert('item deleted');
+    }).catch(error => {
+      console.log("Error removing document: ", error);
+      alert('error deleting item');
+    });
+  }
+
+  function deleteCategory(category) {
+    let temp = existingCategories.filter(item => item.name.toLocaleLowerCase() !== category);
+    setExistingCatgories(temp);
+    setChoosenCategory(existingCategories[0].name.toLowerCase());
+    firestore.collection("categories").doc(choosenCategory).delete().then(() => {
+      console.log("Document successfully deleted!");
+      alert('category deleted');
+    }).catch(error => {
+      console.log("Error removing document: ", error);
+      alert('error deleting category');
+    });
+  }
+
+  function editItem(data) {
+    navigate("/edit",{state:data})
+  }
+
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -38,7 +67,8 @@ function View() {
   return (
     <div>
       <div className="container">
-        <div className="h6 pt-5 pb-2">Categories</div>
+        <div className="h6 pt-5 pb-2">Categories
+          <span className="float-end btn btn-danger btn-sm" onClick={() => deleteCategory(choosenCategory)}> Delete {choosenCategory}</span></div>
         <div className="row overflow-scroll">
           {existingCategories.map((cat, index) => {
             return (
@@ -59,25 +89,30 @@ function View() {
           {items.map((item, index) => {
             return (
               <div className="col-md-4" key={index}>
-                <div class="card mb-3">
-                  <img src={item.image} class="card-img-top" alt="" />
-                  <div class="card-body">
-                    <h6 class="card-title">{item.name}</h6>
-                    <h3 class="card-title fw-bold">
+                <div className="card mb-3">
+                  <img src={item.image} className="card-img-top" alt="" />
+                  <div className="card-body">
+                    <h6 className="card-title">{item.name}</h6>
+                    <h3 className="card-title fw-bold">
                       {Number(item.price).toLocaleString()}{" "}
                       <span className="fs-6 fw-normal text-muted">frs</span>
                     </h3>
-                    <p class="card-text">{item.description}</p>
-                    <p class="card-text">
-                      <small class="text-muted">{item.rating}</small>
+                    <p className="card-text">{item.description}</p>
+                    <p className="card-text">
+                      <small className="text-muted">{item.rating}</small>
                     </p>
+                    <button className="float-end btn btn-sm btn-danger" onClick={() => deleteItem(item)}>Delete</button>
+                    <button className="float-end btn btn-sm btn-success me-2" onClick={()=>{editItem(item)}}>Edit</button>
                   </div>
-                </div>
+                </div> 
               </div>
             );
           })}
         </div>
       </div>
+
+
+
     </div>
   );
 }

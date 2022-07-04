@@ -19,8 +19,10 @@ import View from "./View";
 import Upload from "./Upload";
 import HeaderNew from "./Header copy";
 import Alan from "./Hooks/Alan";
+import Edit from "./edit";
 import RegisterManager from "./RegisterManager";
 import Details from "./Details";
+
 
 const promise = loadStripe(
   "pk_test_51LBKSvF3b97fkgH1NL06cXGoraMh8i627gtjXtHksuFWTF332QbHK4RiiwFphaFTNlC3B65K7kp9Wbdpw2H0Bhv100uE37QIbM"
@@ -28,7 +30,7 @@ const promise = loadStripe(
 
 function App() {
   Alan();
-  const [{}, dispatch] = useStateValue();
+  const [{ }, dispatch] = useStateValue();
   // will only run once when the app component loads...
 
   useEffect(() => {
@@ -145,6 +147,16 @@ function App() {
               <>
                 <Header />
                 <Checkout />
+              </>
+            }
+          />
+
+          <Route
+            path="/edit"
+            element={
+              <>
+                <Header />
+                <Edit />
               </>
             }
           />

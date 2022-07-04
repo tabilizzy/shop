@@ -5,7 +5,7 @@ export const initialState = {
 //reduce iterates the items and adds the items
 
 export const getBasketTotal = (basket) => {
-  const finalValue = basket?.reduce((amount, items) => items.price + amount, 0);
+  const finalValue = basket?.reduce((amount, items) => Number(items.price) + Number(amount), 0);
   return finalValue;
 };
 
