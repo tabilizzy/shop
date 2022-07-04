@@ -16,12 +16,12 @@
 }
 .main_nav{
     display: flex;
-    justify-content:space-evenly;
+    justify-content:space-evenly; 
 }
 .main_option {
     display: flex;
     flex-direction: column;
-    margin-left: 400px;
+    margin-left: 200px;
     margin-right: 20px;
     color: white;
 }

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "./css/Header.css";
 import { auth } from "./firebase";
-import { SearchOutlined, ShoppingBasket} from "@material-ui/icons";
-  import { Link } from "react-router-dom";
-import {onAuthStateChanged, signout} from "firebase/auth";
+import { SearchOutlined, ShoppingBasket } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+import { onAuthStateChanged, signout } from "firebase/auth";
 
 import { useStateValue } from "./StateProvider";
 
 function Header() {
-  const [{basket}, dispatch] = useStateValue();
+  const [{ basket }, dispatch] = useStateValue();
 
   const [user, setUser] = useState({});
   onAuthStateChanged(auth, (currentUser) => {
@@ -20,49 +20,75 @@ function Header() {
     }
   };
   return (
-    <div className="header">
-      <Link to="/">
-        <img className="header_logo" src="./images/shop.png" alt="" />
-      </Link>
-      <div className="header_search">
-        <input className="header_searchInput" type="text"  placeholder="search..."/>
-         <SearchOutlined className="header_searchIcon" /> 
-
-        <div className="header_nav">
-          <Link to={!user && "/register"}>
-            <div onClick={handleAuthentication} className="header_option">
-              <span className="header_optionLineOne">
-                Hello {!user ? "Guest" : user?.email}
-              </span>
-              <span className="header_optionLineTwo">
-                {user ? "Sign Out" : "Sign In"}
-              </span>
-            </div>
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand " href="#">
+          <Link to="/">
+            <img
+              src="./images/shop.png"
+              alt=""
+              width="100"
+              //height="24"
+              class="d-inline-block align-text-top"
+            />
           </Link>
-          <Link to='/orders'>
+        </a>
+        <form class="w-50" role="search">
+          <div className="input-group ">
+            <input
+              class="form-control"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+
+            <div className="input-group-text search-button text-dark">
+              Search
+            </div>
+          </div>
+        </form>
+
+        <Link to="/orders">
           <div className="header_option">
             <span className="header_optionLineOne">Return</span>
             <span className="header_optionLineTwo">& Orders</span>
           </div>
-          </Link>
-          <div className="header_option">
-            <span className="header_optionLineOne">Your</span>
-            <span className="header_optionLineTwo"> Prime</span>
-          </div>
-          <Link to="/checkout">
-            <div className="header_optionBasket">
-               <ShoppingBasket /> 
-              <span
-                className="header_optionLineTwo 
+        </Link>
+        <div className="header_option">
+          <span className="header_optionLineOne">Your</span>
+          <span className="header_optionLineTwo"> Prime</span>
+        </div>
+
+        <div>
+          <button className="btn">
+            <Link to={!user && "/register"}>
+              <div onClick={handleAuthentication} className="header_option">
+                <span className="header_optionLineOne">
+                  Hello {!user ? "Guest" : user?.email}
+                </span>
+                <span className="header_optionLineTwo">
+                  {user ? "Sign Out" : "Sign In"}
+                </span>
+              </div>
+            </Link>
+          </button>
+
+          <button className="btn ms-3">
+            <Link to="/checkout">
+              <div className="header_optionBasket">
+                <ShoppingBasket />
+                <span
+                  className="header_optionLineTwo 
                         header_basketCount"
-              >
-                {basket?.length}
-              </span>
-            </div>
-          </Link>
+                >
+                  {basket?.length}
+                </span>
+              </div>
+            </Link>
+          </button>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
 
