@@ -89,7 +89,6 @@ function Payment() {
                   console.log("This is me", url);
                 }}
               >
-                {" "}
                 buy now
               </button>
             </div>
