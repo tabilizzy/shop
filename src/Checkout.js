@@ -1,5 +1,5 @@
 import React from "react";
-import "./css/Checkout.css";
+// import "./css/Checkout.css";
 import Subtotal from "./Subtotal";
 import CheckoutProduct from "./CheckoutProduct";
 import { useStateValue } from "./StateProvider";
@@ -9,33 +9,52 @@ function Checkout() {
   console.log(basket, "basket");
 
   return (
-    <div className="checkout">
-      <div className="checkout_left">
-        <img className="checkout_ad" src="./images/open.jpg" alt="openshop" />
-        <div>
-          <h3>Hello , {user?.email}</h3>
-          <h2 className="checkout_title">Your Shopping Basket</h2>
+    <div className="checkout container">
 
-          {basket.map((item) => {
-            console.log(item, "i=================");
-            return (
-              <CheckoutProduct
-                id={item.id}
-                catergory={item.catergory}
-                title={item.title}
-                image={item.image}
-                price={item.price}
-                rating={item.rating}
-              />
-            );
-          })}
+      <div className="row">
+        <div className="col-lg-8">
+          <div className="row">
+            <div className="col-12">
+              <div className="card mt-2 bg-light my-3">
+                <div className="card-body">
+                  <div className="h6">Hello , {user?.email}</div>
+                  <div className="h4">Your Shopping Basket</div>
+                </div>
+              </div>
+            </div>
+
+
+            <div className="col-12">
+              <div className="card mt-2 my-3 p-5">
+                {basket.map((item) => { 
+                  return (
+
+                    <div className="card mt-2 my-3 bg-light"> 
+                      <CheckoutProduct
+                        id={item.id}
+                        catergory={item.catergory}
+                        title={item.title}
+                        image={item.image}
+                        price={item.price}
+                        rating={item.rating}
+                      />
+                    </div>
+                  );
+                })}
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div className="col">
+          <div className="mt-2">
+            <Subtotal />
+          </div>
         </div>
       </div>
+ 
 
-      <div className="checkout_right">
-        <Subtotal />
-        <h2>the subtotal will go here</h2>
-      </div>
     </div>
   );
 }

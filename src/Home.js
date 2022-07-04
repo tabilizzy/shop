@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./css/Home.css";
 import { firestore } from "./firebase";
 import { useStateValue } from "./StateProvider";
@@ -7,6 +7,8 @@ function Home() {
   const [existingCategories, setExistingCatgories] = useState([]);
   const [choosenCategory, setChoosenCategory] = useState("");
   const [items, setItems] = useState([]);
+  const [_items, set_Items] = useState([]);
+  const searchInputRef = useRef(null);
 
   const [{ basket }, dispatch] = useStateValue();
 
@@ -43,12 +45,23 @@ function Home() {
       .onSnapshot((snap) => {
         let docs = snap.docs.map((doc) => doc.data());
         setItems(docs);
+        set_Items(docs);
       });
   }
 
   function setValues(category) {
     setChoosenCategory(category);
     displayData(category);
+  }
+
+  function searchValues(data){
+    let tempItems =  _items;
+    if(data !== ""){ 
+      let temp = tempItems.filter(item => item.name.toLowerCase().includes(data.toLocaleLowerCase()));
+      setItems(temp)
+    }else{
+      setItems(tempItems);
+    }
   }
 
   useEffect(() => {
@@ -59,11 +72,11 @@ function Home() {
     <div>
       <div className="container">
         <div className="h6 pt-5 pb-2">Categories</div>
-        <div className="row overflow-scroll">
+        <div className=" d-flex overflow-scroll">
           {existingCategories.map((cat, index) => {
             return (
               <div
-                className="col-2"
+                className=" px-2"
                 key={index}
                 onClick={() => setValues(cat.name.toLowerCase())}
               >
@@ -71,14 +84,24 @@ function Home() {
               </div>
             );
           })}
-        </div>
-        <hr />
-
+        </div> 
+        <div className="pb-5"></div>
         <div className="row">
-          <div className="h3 pt-2 pb-1">{choosenCategory}</div>
+          <div className="h3 pt-2 pb-1 text-capitalize">{choosenCategory}</div>
+
+          <div className="input-group mb-5">
+            <input class="form-control" type="search" placeholder={"Search " + choosenCategory} aria-label="Search" onChange={(e)=>{searchValues(e.target.value)}} ref={searchInputRef} />
+
+            <div
+              className="input-group-text search-button text-dark"
+              onClick={()=>{searchValues(searchInputRef.current.value)}}
+            >
+              Search
+            </div>
+          </div>
           {items.map((item, index) => {
             return (
-              <div className="col-md-6" key={index}>
+              <div className="col-md-3" key={index}>
                 <div className="card mb-4">
                   <img src={item.image} className="card-img-top" alt="" />
                   <div className="card-body">

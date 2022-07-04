@@ -75,17 +75,19 @@ function Payment() {
               />
                
               <button
+              className="btn"
+              style={{ backgroundColor: "#f0c14b" }}
                 onClick={(e) => {
                   let memo = "Shop Purchase";
                   let s_url = "http://localhost:3000/orders";
-                  let c_url = "http://localhost:3000/orders";
+                  let c_url = "http://localhost:3000/";
                   let url = `https://zitopay.africa/sci/?currency=XAF&amount=${totalCost}&receiver=awakedom&memo=${memo}&success_url=${s_url}&cancel_url=${c_url}`;
                   storeData(basket);
                   window.location.href = url;
                   console.log("This is me", url);
                 }}
               >
-                buy now
+                Buy Now
               </button>
             </div>
           </div>

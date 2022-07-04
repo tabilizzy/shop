@@ -21,40 +21,50 @@ function Register() {
       }
     } catch (error) {
       alert(error.message);
-      alert("please try again an error occured maybe you are offline")
+      alert("please try again an error occurred maybe you are offline")
     }
   };
 
   return (
     <div className="login">
-      <img className="login_logo" src="./images/shop.png" alt="" />
+      <div className="login-content-holder">
 
-      <div className="login_container">
-        <h1>Create your Account</h1>
+        <div className="login-header"> 
+          <img className="login_logo w-25" src="./images/shop.png" alt="" />
+          <div className="login-header-text"> 
+          <h1 className="h1 py-2">Create your Account</h1>
+          </div>
+        </div>
 
-        <h5>Email</h5>
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-        <h5>Password</h5>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-        <button onClick={register} type="submit" className="login_signIn">
-          Register
-        </button>
-        <p>
-          By Registering you agree to our terms and conditions of Use and sales.
-          Please visit our Privacy and Policy page to know more
-        </p>
+        <div className="login-body w-lg-25 w-md-50">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" 
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }} />
+            <label for="floatingInput">Email</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" 
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }} />
+            <label for="floatingPassword">Password</label>
+          </div>
+ 
+          <button onClick={register} type="submit" className="btn btn-primary my-3 login_btn">
+            Register
+          </button>
+        </div>
+        <div className="login-footer">
+
+          <p>
+            By Registering you agree to our terms and conditions of Use and sales.
+            Please visit our Privacy and Policy page to know more
+          </p>
+        </div>
+
       </div>
     </div>
   );
