@@ -88,7 +88,7 @@ function View() {
           <div className="h3 pt-2 pb-1">{choosenCategory}</div>
           {items.map((item, index) => {
             return (
-              <div className="col-md-4" key={index}>
+              <div className="col-md-3" key={index}>
                 <div className="card mb-3">
                   <img src={item.image} className="card-img-top" alt="" />
                   <div className="card-body">
