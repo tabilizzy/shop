@@ -1,7 +1,4 @@
-import "./App.css";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
@@ -19,6 +16,7 @@ import Alan from "./Hooks/Alan";
 import Edit from "./edit";
 import RegisterManager from "./RegisterManager";
 import Details from "./Details";
+import Landing from "./Landing";
 
 function App() {
   Alan();
@@ -97,7 +95,7 @@ function App() {
             }
           />
           <Route
-            path="/header"
+            path="/admin"
             element={
               <>
                 <Newheader />
@@ -147,11 +145,19 @@ function App() {
 
           <Route
             exact
-            path="/"
+            path="/home"
             element={
               <>
                 <Header />
                 <Home />
+              </>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <>
+                <Landing />
               </>
             }
           />

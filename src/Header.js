@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./css/Header.css";
 import { auth } from "./firebase";
-import { SearchOutlined, ShoppingBasket } from "@material-ui/icons";
+import { ShoppingBasket } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { onAuthStateChanged, signout } from "firebase/auth";
 
@@ -23,7 +23,7 @@ function Header() {
     <nav class="navbar navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand " href="#">
-          <Link to="/">
+          <Link to="/home">
             <img
               src="./images/shop.png"
               alt=""

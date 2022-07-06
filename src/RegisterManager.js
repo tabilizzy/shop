@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./css/Login.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./firebase";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -9,71 +9,79 @@ function RegisterManager() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-
+  // const [firstname, setFirstname] = useState("");
+  // const [lastname, setLastname] = useState("");
 
   const register = async (e) => {
     e.preventDefault();
     try {
-      const user = await createUserWithEmailAndPassword(auth, email, password, firstname, lastname);
+      const user = await createUserWithEmailAndPassword(auth, email, password);
       // console.log(user);
-      alert("successfully created an account")
+      alert("successfully created an account");
       if (auth) {
-        navigate("/header");
+        navigate("/admin");
       }
     } catch (error) {
       alert(error.message);
-      alert("please try again an error occured maybe you are offline")
+      alert("please try again an error occured maybe you are offline");
     }
   };
 
   return (
     <div className="login">
-      <img className="login_logo" src="./images/shop.png" alt="" />
+      <div className="login-content-holder">
+        <div className="login-header">
+          <img
+            className="login_logo w-25"
+            src="./images/shop_black.png"
+            alt=""
+          />
+          <div className="login-header-text">
+            <h1 className="h1 py-2">Create your Account Dear Manager</h1>
+          </div>
+        </div>
 
-      <div className="login_container">
-        <h1>Create your Account</h1>
+        <div className="login-body w-lg-25 w-md-50">
+          <div class="form-floating mb-3">
+            <input
+              type="email"
+              class="form-control"
+              id="floatingInput"
+              placeholder="name@example.com"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+            <label for="floatingInput">Email</label>
+          </div>
+          <div class="form-floating">
+            <input
+              type="password"
+              class="form-control"
+              id="floatingPassword"
+              placeholder="Password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+            <label for="floatingPassword">Password</label>
+          </div>
 
-        <h5>First Name</h5>
-        <input type="text" required
-        value={firstname}
-        onChange={(e) => {
-          setFirstname(e.target.value);
-        }}
-        />
-
-        <h5>Last Name</h5>
-        <input type="text" required
-        value={lastname}
-        onChange={(e) => {
-          setLastname(e.target.value);
-        }}
-        />
-
-        <h5>Email</h5>
-        <input
-          type="text" required
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-        <h5>Password</h5>
-        <input
-          type="password"
-          value={password} required
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        />
-        <button onClick={register} type="submit" className="login_signIn">
-          SignIn
-        </button>
-        <p>
-          By Registering you agree to our terms and conditions of Use and sales.
-          Please visit our Privacy and Policy page to know more
-        </p>
+          <button
+            onClick={register}
+            type="submit"
+            className="btn btn-primary my-3 login_btn"
+          >
+            Register
+          </button>
+        </div>
+        <div className="login-footer">
+          <p>
+            By Registering you agree to our terms and conditions of Use and
+            sales. Please visit our Privacy and Policy page to know more
+          </p>
+        </div>
       </div>
     </div>
   );

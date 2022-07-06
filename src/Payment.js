@@ -80,7 +80,7 @@ function Payment() {
                 onClick={(e) => {
                   let memo = "Shop Purchase";
                   let s_url = "http://localhost:3000/orders";
-                  let c_url = "http://localhost:3000/";
+                  let c_url = "http://localhost:3000/home";
                   let url = `https://zitopay.africa/sci/?currency=XAF&amount=${totalCost}&receiver=awakedom&memo=${memo}&success_url=${s_url}&cancel_url=${c_url}`;
                   storeData(basket);
                   window.location.href = url;

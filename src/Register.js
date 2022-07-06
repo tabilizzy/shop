@@ -17,7 +17,7 @@ function Register() {
       // console.log(user);
       alert("successfully created an account");
       if (auth) {
-        navigate("/login");
+        navigate("/home");
       }
     } catch (error) {
       alert(error.message);
@@ -73,27 +73,25 @@ function Register() {
           >
             Register
           </button>
-        </div>
-        <div className="login-footer">
-          <p>
-            By Registering you agree to our terms and conditions of Use and
-            sales. Please visit our Privacy and Policy page to know more
-          </p>
-          <div className="row pt-5 align-items-start">
-            <div className="col-auto">
-              <p>You don't have an account</p>
-            </div>
+
+          <div className="row py-1 align-items-middle justify-content-center"> 
             <div className="col-auto">
               <Link to="/login">
                 <button
                   type="submit"
-                  className="btn btn-primary my-3 login_btn"
+                  className="btn btn-outline-primary text-dark login_btn"
                 >
                   Sign In to your Account
                 </button>
               </Link>
             </div>
           </div>
+        </div>
+        <div className="login-footer">
+          <p>
+            By Registering you agree to our terms and conditions of Use and
+            sales. Please visit our Privacy and Policy page to know more
+          </p>
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@ function Login() {
       const user = await signInWithEmailAndPassword(auth, email, password);
       // console.log(user);
       if (auth) {
-        navigate("/");
+        navigate("/home");
       }
     } catch (error) {
       alert(error.message);
