@@ -17,6 +17,8 @@ import Edit from "./edit";
 import RegisterManager from "./RegisterManager";
 import Details from "./Details";
 import Landing from "./Landing";
+import Secret from "./Secret";
+import LoginManager from "./LoginManager";
 
 function App() {
   Alan();
@@ -51,6 +53,22 @@ function App() {
     <Router>
       <div className="app">
         <Routes>
+          <Route
+            path="/secret"
+            element={
+              <>
+                <Secret />
+              </>
+            }
+          />
+           <Route
+            path="/loginManger"
+            element={
+              <>
+                <LoginManager />
+              </>
+            }
+          />
           <Route
             path="/registerManger"
             element={

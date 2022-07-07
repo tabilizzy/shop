@@ -2,28 +2,24 @@ import React, { useState } from "react";
 import "./css/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
-
-function RegisterManager() {
+function LoginManager() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [firstname, setFirstname] = useState("");
-  // const [lastname, setLastname] = useState("");
 
-  const register = async (e) => {
+  const signIn = async (e) => {
+    //helps to prevent refreshing
     e.preventDefault();
     try {
-      const user = await createUserWithEmailAndPassword(auth, email, password);
+      const user = await signInWithEmailAndPassword(auth, email, password);
       // console.log(user);
-      alert("successfully created an account");
       if (auth) {
-        navigate("/loginManager");
+        navigate("/secret");
       }
     } catch (error) {
       alert(error.message);
-      alert("please try again an error occured maybe you are offline");
     }
   };
 
@@ -37,7 +33,7 @@ function RegisterManager() {
             alt=""
           />
           <div className="login-header-text">
-            <h1 className="h1 py-2">Create your Account Dear Manager</h1>
+            <h1 className="h1 py-2">Please Sign in</h1>
           </div>
         </div>
 
@@ -69,22 +65,34 @@ function RegisterManager() {
           </div>
 
           <button
-            onClick={register}
+            onClick={signIn}
             type="submit"
             className="btn btn-primary my-3 login_btn"
           >
-            Register
+            Sign-In
           </button>
         </div>
         <div className="login-footer">
           <p>
-            By Registering you agree to our terms and conditions of Use and
-            sales. Please visit our Privacy and Policy page to know more
+            By sign-In you agree to our terms and conditions of Use and sales.
+            Please visit our Privacy and Policy page to know mores
           </p>
+        </div>
+        <div className="row pt-5 align-items-start">
+          <div className="col">
+            <p>You don't have an account</p>
+          </div>
+          <div className="col">
+            <Link to="/register">
+              <button type="submit" className="btn btn-primary my-3 login_btn">
+                Create your Account
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default RegisterManager;
+export default LoginManager;
