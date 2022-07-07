@@ -12,7 +12,7 @@ import Newheader from "./Newheader";
 import View from "./View";
 import Upload from "./Upload";
 import Header from "./Header";
-import Alan from "./Hooks/Alan";
+import Alan from "./components/Alan";
 import Edit from "./edit";
 import RegisterManager from "./RegisterManager";
 import Details from "./Details";

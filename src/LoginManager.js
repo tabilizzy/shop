@@ -33,7 +33,7 @@ function LoginManager() {
             alt=""
           />
           <div className="login-header-text">
-            <h1 className="h1 py-2">Please Sign in</h1>
+            <h1 className="h1 py-2">Dear Manager Login </h1>
           </div>
         </div>
 
@@ -77,18 +77,6 @@ function LoginManager() {
             By sign-In you agree to our terms and conditions of Use and sales.
             Please visit our Privacy and Policy page to know mores
           </p>
-        </div>
-        <div className="row pt-5 align-items-start">
-          <div className="col">
-            <p>You don't have an account</p>
-          </div>
-          <div className="col">
-            <Link to="/register">
-              <button type="submit" className="btn btn-primary my-3 login_btn">
-                Create your Account
-              </button>
-            </Link>
-          </div>
         </div>
       </div>
     </div>

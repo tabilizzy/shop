@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { firestore } from "./firebase";
+import { useStateValue } from "./StateProvider";
 
 function View() {
   const [existingCategories, setExistingCatgories] = useState([]);
   const [choosenCategory, setChoosenCategory] = useState("");
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
+  const [{ user }, dispatch] = useStateValue();
+
 
   function fetchCategories() {
     firestore.collection("categories").onSnapshot((snap) => {
@@ -67,6 +70,9 @@ function View() {
   return (
     <div>
       <div className="container">
+        <div className="pt-5">
+        <h4>Hello Manager {user?.email} you are welcome to the dashbord</h4>
+        </div>
         <div className="h6 pt-5 pb-2">Categories
           <span className="float-end btn btn-danger btn-sm" onClick={() => deleteCategory(choosenCategory)}> Delete {choosenCategory}</span></div>
         <div className="row overflow-scroll">

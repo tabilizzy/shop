@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import "./css/Header.css";
 import { auth } from "./firebase";
 import { ShoppingBasket } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signout } from "firebase/auth";
 
 import { useStateValue } from "./StateProvider";
 
 function Header() {
   const [{ basket }, dispatch] = useStateValue();
+  const navigate = useNavigate();
 
   const [user, setUser] = useState({});
   onAuthStateChanged(auth, (currentUser) => {
@@ -61,16 +62,14 @@ function Header() {
 
         <div>
           <button className="btn">
-            <Link to={!user && "/register"}>
-              <div onClick={handleAuthentication} className="header_option">
-                <span className="header_optionLineOne">
-                  Hello {!user ? "Guest" : user?.email}
-                </span>
-                <span className="header_optionLineTwo">
-                  {user ? "Sign Out" : "Sign In"}
-                </span>
+            <div onClick={handleAuthentication} className="header_option">
+              <span className="header_optionLineOne">
+                Hello {!user ? "Guest" : user?.email}
+              </span>
+              <span className="header_optionLineTwo" onClick={e=> navigate("/")}>
+                Sign Out
+              </span>
               </div>
-            </Link>
           </button>
 
           <button className="btn ms-3">

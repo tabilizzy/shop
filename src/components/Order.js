@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import "./css/order.css";
-import CheckoutProduct from "./CheckoutProduct";
+import "../css/order.css";
+import CheckoutProduct from "../CheckoutProduct";
 import CurrencyFormat from "react-currency-format";
-import { useStateValue } from "./StateProvider";
-import { getBasketTotal } from "./reducer";
+import { useStateValue } from "../StateProvider";
+import { getBasketTotal } from "../reducer";
 import { useLocation } from "react-router-dom";
 
 function Order({ order }) {

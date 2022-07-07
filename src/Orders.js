@@ -1,6 +1,6 @@
 import React from "react";
 import "./css/Orders.css";
-import Order from "./Order";
+import Order from "./components/Order";
 
 function Orders() {
   return (
