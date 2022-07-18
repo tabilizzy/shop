@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./css/secret.css";
 
 function Secret() {
   const [data, setData] = useState(null);
@@ -15,7 +16,7 @@ function Secret() {
 
   function confirm() {
     const answer = "para";
-    if (answer ===  data ) {
+    if (answer === data) {
       navigate("/admin");
     } else {
       alert("you are not the manager");
@@ -24,13 +25,24 @@ function Secret() {
   }
 
   return (
-    <div className="container">
-        <h3>If you are truly the manager then you should know the catch phrase of Shop</h3>
-        <h3>input the phrase and have access to the dashbord</h3>
-      <input type="text" onChange={getdata} />
-      <button onClick={() => setShow(true)}>Print Value</button>
-      {show ? <h2>{data}</h2> : null}
-      <button onClick={confirm}>Confirm</button>
+    <div className="">
+      <img className="home_image" src="./images/cloth.jpg" alt="openshop" />
+      <div className="pt-5 text-center">
+        <h4>
+          If you are truly the manager then you should know the catch phrase of
+          Shop <br></br>input the phrase and have access to the dashbord
+        </h4>
+        <div className="pt-5"></div>
+        <input type="text" onChange={getdata} />
+        {/* <button onClick={() => setShow(true)}>Print Value</button> */}
+        {show ? <h2>{data}</h2> : null}
+        <button
+          className="btn btn-outline-primary text-dark login_btn"
+          onClick={confirm}
+        >
+          Confirm
+        </button>
+      </div>
     </div>
   );
 }

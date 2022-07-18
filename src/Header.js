@@ -15,11 +15,13 @@ function Header() {
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
+
   const handleAuthentication = async () => {
     if (user) {
       auth.signOut();
     }
   };
+  
   return (
     <nav class="navbar navbar-dark bg-dark">
       <div class="container-fluid">
@@ -34,7 +36,7 @@ function Header() {
             />
           </Link>
         </a>
-        <form class="w-50" role="search">
+        {/* <form class="w-50" role="search">
           <div className="input-group ">
             <input
               class="form-control"
@@ -47,7 +49,7 @@ function Header() {
               Search
             </div>
           </div>
-        </form>
+        </form> */}
 
         <Link to="/orders">
           <div className="header_option">
@@ -64,12 +66,15 @@ function Header() {
           <button className="btn">
             <div onClick={handleAuthentication} className="header_option">
               <span className="header_optionLineOne">
-                Hello {!user ? "Guest" : user?.email}
+                Hello User {!user ? "Guest" : user?.email}
               </span>
-              <span className="header_optionLineTwo" onClick={e=> navigate("/")}>
+              <span
+                className="header_optionLineTwo"
+                onClick={(e) => navigate("/")}
+              >
                 Sign Out
               </span>
-              </div>
+            </div>
           </button>
 
           <button className="btn ms-3">

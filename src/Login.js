@@ -72,26 +72,29 @@ function Login() {
             Sign-In
           </button>
         </div>
+        <div className="row py-1 align-items-middle justify-content-center"> 
+            <div className="col-auto">
+              
+              <Link to="/login">
+                <button
+                  type="submit"
+                  className="btn btn-outline-primary text-dark login_btn"
+                >
+                  Create your account
+                </button>
+              </Link>
+              
+            </div>
+          </div>
+        </div>
         <div className="login-footer">
           <p>
-            By sign-In you agree to our terms and conditions of Use and sales.
-            Please visit our Privacy and Policy page to know mores
+            By Logging in you agree to our terms and conditions of Use and
+            sales. Please visit our Privacy and Policy page to know more
           </p>
         </div>
-        <div className="row pt-5 align-items-start">
-          <div className="col">
-            <p>You don't have an account</p>
-          </div>
-          <div className="col">
-            <Link to="/register">
-              <button type="submit" className="btn btn-primary my-3 login_btn">
-                Create your Account
-              </button>
-            </Link>
-          </div>
-        </div>
       </div>
-    </div>
+    
   );
 }
 

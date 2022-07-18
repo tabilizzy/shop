@@ -65,7 +65,7 @@ function Register() {
             />
             <label for="floatingPassword">Password</label>
           </div>
-
+            
           <button
             onClick={register}
             type="submit"
@@ -73,9 +73,20 @@ function Register() {
           >
             Register
           </button>
+          <form>
+            <Link to='/phone'>
+          <button
+                  type="submit"
+                  className="btn btn-outline-primary text-white login_btn"
+                >
+                  Sign in with your Phone number
+                </button>
+                </Link>
+                </form>
 
           <div className="row py-1 align-items-middle justify-content-center"> 
             <div className="col-auto">
+              
               <Link to="/login">
                 <button
                   type="submit"
@@ -84,6 +95,7 @@ function Register() {
                   Sign In to your Account
                 </button>
               </Link>
+              
             </div>
           </div>
         </div>

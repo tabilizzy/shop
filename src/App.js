@@ -19,6 +19,8 @@ import Details from "./Details";
 import Landing from "./Landing";
 import Secret from "./Secret";
 import LoginManager from "./LoginManager";
+import Phone from "./Phone";
+import VideoBackgroundPage from "./new";
 
 function App() {
   Alan();
@@ -53,6 +55,22 @@ function App() {
     <Router>
       <div className="app">
         <Routes>
+        <Route
+            path="/new"
+            element={
+              <>
+                <VideoBackgroundPage />
+              </>
+            }
+          />
+        <Route
+            path="/phone"
+            element={
+              <>
+                <Phone />
+              </>
+            }
+          />
           <Route
             path="/secret"
             element={

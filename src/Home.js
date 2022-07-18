@@ -69,7 +69,7 @@ function Home() {
   }, []);
 
   return (
-    <div>
+    <div className="home">
       <div className="container">
         <div className="h6 pt-5 pb-2">Categories</div>
         <div className=" d-flex overflow-scroll">

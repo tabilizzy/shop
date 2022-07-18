@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import { firestore } from "./firebase";
 import { useStateValue } from "./StateProvider";
@@ -7,6 +7,8 @@ function View() {
   const [existingCategories, setExistingCatgories] = useState([]);
   const [choosenCategory, setChoosenCategory] = useState("");
   const [items, setItems] = useState([]);
+  const [_items, set_Items] = useState([]);
+  const searchInputRef = useRef(null);
   const navigate = useNavigate();
   const [{ user }, dispatch] = useStateValue();
 
@@ -63,6 +65,16 @@ function View() {
     navigate("/edit",{state:data})
   }
 
+  function searchValues(data){
+    let tempItems =  _items;
+    if(data !== ""){ 
+      let temp = tempItems.filter(item => item.name.toLowerCase().includes(data.toLocaleLowerCase()));
+      setItems(temp)
+    }else{
+      setItems(tempItems);
+    }
+  }
+
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -92,6 +104,16 @@ function View() {
 
         <div className="row">
           <div className="h3 pt-2 pb-1">{choosenCategory}</div>
+          <div className="input-group mb-5">
+            <input class="form-control" type="search" placeholder={"Search " + choosenCategory} aria-label="Search" onChange={(e)=>{searchValues(e.target.value)}} ref={searchInputRef} />
+
+            <div
+              className="input-group-text search-button text-dark"
+              onClick={()=>{searchValues(searchInputRef.current.value)}}
+            >
+              Search
+            </div>
+          </div>
           {items.map((item, index) => {
             return (
               <div className="col-md-3" key={index}>
